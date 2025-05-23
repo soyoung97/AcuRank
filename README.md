@@ -138,6 +138,7 @@ Change the sequence for other budgets (e.g. `5 4 4 4 4 4` for TS-25).
 | ----------------- | ---------------------------------------------------------------------------------------- |
 | **RankVicuna-7B** | `--model_path castorini/rank_vicuna_7b_v1`                                               |
 | **GPT-4.1-mini**  | add your API key in `listwise_reranking_modules.py` then set `--model_path gpt-4.1-mini` |
+| **Llama-3.3-70B-Instruct** | `--model_path meta-llama/Llama-3.3-70B-Instruct`  |
 
 ---
 
