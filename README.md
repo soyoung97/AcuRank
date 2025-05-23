@@ -25,7 +25,7 @@ All variant commands below assume the same flags unless otherwise noted.
 
 ## 2. Dataset Preparation
 
-We provide **BM25 top-100** retrievals for three public datasets:
+We provide **BM25 top-100** retrievals for three datasets:
 
 | ID           | Description  |
 | ------------ | ------------ |
