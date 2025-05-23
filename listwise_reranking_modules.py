@@ -15,7 +15,7 @@ class ListwiseLLM():
         self._system_message = 'You are RankLLM, an intelligent assistant that can rank passages based on their relevancy to the query.'
         self.use_openai = args.model_path.lower() in {'o4-mini', 'gpt-4o', 'o3-mini', 'gpt-4o-mini', 'gpt-4.1-mini'}
         if self.use_openai:
-                self.api_key = "YOUR_API_KEY_HERE"
+            self.api_key = "YOUR_API_KEY_HERE"
             print(f"Using Openai API KEY of {self.args.api}!")
             self.model = OpenAI(api_key=self.api_key)
             self.tokenizer = tiktoken.encoding_for_model('gpt-4o') # self.args.model_path)
