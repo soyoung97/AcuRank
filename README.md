@@ -1,5 +1,6 @@
 # AcuRank & Baselines
 
+Official code and baselines for: [AcuRank: Uncertainty-Aware Adaptive Computation for Listwise Reranking](http://arxiv.org/abs/2505.18512)
 This repository contains code for **AcuRank**—our uncertainty-aware adaptive listwise reranker—and all baseline methods used in the paper.
 
 ---
