@@ -2,6 +2,9 @@
 
 Official code and baselines for: [AcuRank: Uncertainty-Aware Adaptive Computation for Listwise Reranking](http://arxiv.org/abs/2505.18512)
 
+The prompting, generation, and parsing for listwise rerankers are mainly referenced from the [RankLLM](https://github.com/castorini/rank_llm) repository,
+ and the code for tourrank is initialized and modified from the original [TourRank](https://github.com/chenyiqun/TourRank) codebase.
+
 Please email `soyoung.yoon@snu.ac.kr` if you have any further questions about the implementation!
 
 ---
@@ -39,7 +42,7 @@ Specify the dataset with `--dataset <name>`.
 
 > **Custom data \& Other datasets**
 > Convert and make other retrieval runs to the required JSONL format, by running & modifying the `make_jsonl_data.py` script.
-> (The full dataset-download link will be released after acceptance.)
+> Other datasets can be downloaded via the pre-dumped [huggingface datasets](https://huggingface.co/datasets/Soyoung97/beir-eval-bm25-top100) repository.
 
 ---
 
@@ -145,4 +148,24 @@ Change the sequence for other budgets (e.g. `5 4 4 4 4 4` for TS-25).
 ---
 
 
+## 9. Citations
+
+If you find our work useful, please consider citing our paper:
+
+```
+@misc{yoon2025acurankuncertaintyawareadaptivecomputation,
+      title={AcuRank: Uncertainty-Aware Adaptive Computation for Listwise Reranking},
+      author={Soyoung Yoon and Gyuwan Kim and Gyu-Hwung Cho and Seung-won Hwang},
+      year={2025},
+      eprint={2505.18512},
+      archivePrefix={arXiv},
+      primaryClass={cs.IR},
+      url={https://arxiv.org/abs/2505.18512},
+}
+```
+
+
+## 10. License
+
+TBU
 
