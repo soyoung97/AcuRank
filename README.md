@@ -1,11 +1,8 @@
-# AcuRank & Baselines
+# AcuRank: Uncertainty-Aware Adaptive Computation for Listwise Reranking
 
-Official code and baselines for: [AcuRank: Uncertainty-Aware Adaptive Computation for Listwise Reranking](http://arxiv.org/abs/2505.18512)
+Official code and baselines for our [AcuRank](http://arxiv.org/abs/2505.18512) paper. 
 
-The prompting, generation, and parsing for listwise rerankers are mainly referenced from the [RankLLM](https://github.com/castorini/rank_llm) repository,
- and the code for tourrank is initialized and modified from the original [TourRank](https://github.com/chenyiqun/TourRank) codebase.
-
-Please email `soyoung.yoon@snu.ac.kr` if you have any further questions about the implementation!
+This repository includes our implementation of AcuRank as well as baseline methods. Listwise reranker prompting, generation, and parsing are based on [RankLLM](https://github.com/castorini/rank_llm). The TourRank baseline is adapted from [TourRank](https://github.com/chenyiqun/TourRank).
 
 ---
 
@@ -24,7 +21,7 @@ python run.py \
   --dataset trec-covid
 ```
 
-All variant commands below assume the same flags unless otherwise noted.
+All variant commands below assume the same flags unless specified otherwise.
 
 ---
 
@@ -75,7 +72,7 @@ sentencepiece   == 0.2.0
 jsonlines, pandas, scipy, ftfy, …
 ```
 
-(Add missing packages if prompted.)
+Add any missing packages if prompted during setup.
 
 ---
 
@@ -109,7 +106,7 @@ CUDA_VISIBLE_DEVICES=0 \
 python run.py --method sliding_windows --num_pass 1 --dataset trec-covid
 ```
 
-Set `--num_pass` to 2 or 3 for SW-2 / SW-3.
+Use `--num_pass` to set the number of passes (e.g. 2 or 3 for SW-2 / SW-3).
 
 ### 7.2 TourRank (TourRank-X)
 
@@ -148,24 +145,32 @@ Change the sequence for other budgets (e.g. `5 4 4 4 4 4` for TS-25).
 ---
 
 
-## 9. Citations
+## Citations
 
 If you find our work useful, please consider citing our paper:
 
 ```
-@misc{yoon2025acurankuncertaintyawareadaptivecomputation,
-      title={AcuRank: Uncertainty-Aware Adaptive Computation for Listwise Reranking},
-      author={Soyoung Yoon and Gyuwan Kim and Gyu-Hwung Cho and Seung-won Hwang},
-      year={2025},
-      eprint={2505.18512},
-      archivePrefix={arXiv},
-      primaryClass={cs.IR},
-      url={https://arxiv.org/abs/2505.18512},
+@article{yoon2025acurank,
+  title={AcuRank: Uncertainty-Aware Adaptive Computation for Listwise Reranking},
+  author={Yoon, Soyoung and Kim, Gyuwan and Cho, Gyu-Hwung and Hwang, Seung-won},
+  journal={arXiv preprint arXiv:2505.18512},
+  year={2025}
 }
 ```
 
 
-## 10. License
+---
 
-TBU
+## Contact
+
+If you have any questions or run into issues, feel free to open a GitHub Issue.  
+Please email `soyoung.yoon@snu.ac.kr` if you have any further questions about the implementation.  
+You can also email `gyuwankim@ucsb.edu` with questions about the methodology or the paper.
+
+
+---
+
+## License
+
+To be updated.
 
