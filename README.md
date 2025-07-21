@@ -4,6 +4,8 @@ Official code and baselines for our [AcuRank](http://arxiv.org/abs/2505.18512) p
 
 This repository includes our implementation of AcuRank as well as baseline methods. Listwise reranker prompting, generation, and parsing are based on [RankLLM](https://github.com/castorini/rank_llm). The TourRank baseline is adapted from [TourRank](https://github.com/chenyiqun/TourRank).
 
+![AcuRank](main_figure.png)
+
 ---
 
 ## 1. Quick Start
