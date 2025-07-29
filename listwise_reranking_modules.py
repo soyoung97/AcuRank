@@ -146,6 +146,7 @@ class ListwiseLLM():
         gen_cfg = GenerationConfig.from_model_config(self.model.config)
         gen_cfg.max_new_tokens = self.num_output_tokens(candidate_number) #self.num_max_output_tokens
         gen_cfg.min_new_tokens = self.num_output_tokens(candidate_number) #self.num_max_output_tokens
+        input_length = inputs['input_ids'].shape[1]
         # gen_cfg.temperature = 0
         gen_cfg.do_sample = False
         output_ids = self.model.generate(**inputs, generation_config=gen_cfg)
@@ -159,4 +160,4 @@ class ListwiseLLM():
             spaces_between_special_tokens=False,
         )
         #print(f"Input len: {inputs['input_ids'].shape[1]}, Output: {outputs}")
-        return outputs, output_ids.size(0)
+        return outputs, output_ids.size(0), input_length

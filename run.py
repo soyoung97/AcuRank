@@ -1,3 +1,4 @@
+import time
 import copy
 import logging
 import random
@@ -42,6 +43,7 @@ class Runner():
         np.random.seed(0)
         torch.cuda.manual_seed_all(0)
         self.winsize = 0
+        self.in_token_count = 0
         self.trueskill_time = 0
 
     def load_data(self, args):
@@ -104,7 +106,8 @@ class Runner():
             return response
         prompt, in_token_count = self.llm.create_prompt(query, list_of_candidates)
         # permutation: plain string, raw output from llm
-        permutation, out_token_count = self.llm.run_llm(prompt, len(list_of_candidates))
+        permutation, out_token_count, in_token_count = self.llm.run_llm(prompt, len(list_of_candidates))
+        self.in_token_count += in_token_count
         # clean permutation, remove duplicates
         response = self.llm._clean_response(permutation)
         response = [int(x) - 1 for x in response.split() if int(x) > 0] # only leave out positive values
@@ -485,6 +488,7 @@ class Runner():
             ndcg_10, out_string = beir_eval.run_rerank_eval(results, combined=True)
             print(f"Mid process, pass_iter={pass_iter}: {ndcg_10}")
             print(f"Avg winsize: {self.winsize}/{self.total_calls} ({self.winsize / self.total_calls})")
+            print(f"Avg input length: {self.in_token_count}/{self.total_calls} ({self.in_token_count / self.total_calls})")
         num_calls = np.array([x['num_calls'] for x in results])
         avgcnt = np.mean(num_calls).item()
         print(f"\nAverage reranking count: {avgcnt}\n\n")
