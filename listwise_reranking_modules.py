@@ -29,6 +29,10 @@ class ListwiseLLM():
             self.model_max_tokens = 4096
             if self.tokenizer.pad_token is None:
                 self.tokenizer.add_special_tokens({"pad_token": "<|end_of_text|>"})
+            if self.args.profile:
+                from deepspeed.profiling.flops_profiler import FlopsProfiler
+                self.prof = FlopsProfiler(self.model)
+                self.prof.start_profile()
 
     def _replace_number(self, s):
         return re.sub(r"\[(\d+)\]", r"(\1)", s)

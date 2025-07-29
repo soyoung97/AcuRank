@@ -41,6 +41,8 @@ class Runner():
         random.seed(0)
         np.random.seed(0)
         torch.cuda.manual_seed_all(0)
+        self.winsize = 0
+        self.trueskill_time = 0
 
     def load_data(self, args):
         path = f'./data/{args.firststage}/{args.dataset}.jsonl'
@@ -94,6 +96,7 @@ class Runner():
             return []
         if len(list_of_candidates) == 1:
             return [0]
+        self.winsize += len(list_of_candidates)
         if self.args.debug_for_numpass:
             response = list(range(len(list_of_candidates)))
             self.num_calls += 1
@@ -167,8 +170,11 @@ class Runner():
             assert len(orderings) == len(window_candidates) # should not happen if we get correct run_listwise_reranking output
             sorted_candidates = [window_candidates[i] for i in orderings]
             try:
+                start = time.time()
                 updated_ratings = trueskill.rate([[x['rating']] for x in sorted_candidates],
                     ranks=range(len(sorted_candidates)))
+                end = time.time()
+                self.trueskill_time += (end-start)
             except Exception as e:
                 print(f"Error: {e}")
                 import pdb; pdb.set_trace()
@@ -478,6 +484,7 @@ class Runner():
             full_data = copy.deepcopy(results)
             ndcg_10, out_string = beir_eval.run_rerank_eval(results, combined=True)
             print(f"Mid process, pass_iter={pass_iter}: {ndcg_10}")
+            print(f"Avg winsize: {self.winsize}/{self.total_calls} ({self.winsize / self.total_calls})")
         num_calls = np.array([x['num_calls'] for x in results])
         avgcnt = np.mean(num_calls).item()
         print(f"\nAverage reranking count: {avgcnt}\n\n")
@@ -529,6 +536,7 @@ if __name__ == '__main__':
     parser.add_argument('--use_firststage_orderings', action='store_true')
     parser.add_argument('--options', default='', type=str)
     parser.add_argument('--onlyeval', action='store_true')
+    parser.add_argument('--profile', action='store_true')
     parser.add_argument('--level_analysis', action='store_true')
     parser.add_argument('--api', default='sy', type=str) # sy, jy
 
@@ -537,7 +545,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     # configure output path
     model_name = args.model_path.replace('/','_')
-    output_path = build_path(args, root='/results/')
+    output_path = build_path(args, root='./results/')
     args.output_path = output_path
     print(f"Output path: {output_path}")
 
@@ -571,3 +579,8 @@ if __name__ == '__main__':
     else:
         runner = Runner(args)
         runner.run_reranking()
+        if args.profile:
+            runner.llm.prof.stop_profile()
+            flops = runner.llm.prof.get_total_flops()
+            print(f"Flops: {flops}")
+        print(f"Trueskill time: {runner.trueskill_time}")
