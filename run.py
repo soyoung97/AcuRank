@@ -507,7 +507,7 @@ class Runner():
                 'avg_reranking_cnt': avgcnt}
         return return_values
 
-def build_path(args, root="outputs", skip={"resume", "print_freq", "onlyeval", "top_k", "api", 'level_analysis', 'debug_for_numpass'}):
+def build_path(args, root="outputs", skip={"resume", "print_freq", "onlyeval","api", 'level_analysis', 'debug_for_numpass'}):
     clean = lambda x: re.sub(r"[^\w\-.]+", "_", str(x))
     parts = []
     for k, v in sorted(vars(args).items()):
