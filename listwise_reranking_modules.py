@@ -139,7 +139,8 @@ class ListwiseLLM():
             )
             outputs = response.choices[0].message.content.strip()
             out_len = len(self.tokenizer.encode(outputs))
-            return outputs, out_len
+            input_length = response.usage.prompt_tokens
+            return outputs, out_len, input_length
 
         inputs = self.tokenizer([prompt])
         inputs = {k: torch.tensor(v).to('cuda') for k, v in inputs.items()}
